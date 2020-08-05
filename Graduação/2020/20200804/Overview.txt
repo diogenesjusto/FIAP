@@ -3,5 +3,7 @@ Você deve utilizar o arquivo de treino para analisar e conhecer os dados.
 
 Utilizar o arquivo teste.csv para preparar as melhores previsões diárias de vendas de babás eletrônicas para Ago/2015 (devem ser 31 previsões, uma para cada dia).
 
+No arquivo predict.R vc tem um exemplo muito simples de como fazer uma submissão em R (aguarde versão em python).
+
 Você deve submeter sua(s) tentativa(s) no portal: http://ec2-18-229-135-235.sa-east-1.compute.amazonaws.com/
 
