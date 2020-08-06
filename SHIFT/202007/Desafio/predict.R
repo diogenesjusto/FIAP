@@ -1,4 +1,4 @@
-baba <- read.csv("https://raw.githubusercontent.com/diogenesjusto/FIAP/master/SHIFT/2020/202003/baba.csv")
+baba <- read.csv("https://raw.githubusercontent.com/diogenesjusto/FIAP/master/SHIFT/202007/Desafio/train_BABA.csv")
 
 treino <- baba[1:365,]
 teste  <- baba[366:396,]
