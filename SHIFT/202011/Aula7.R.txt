@@ -1,0 +1,114 @@
+# Random Forest
+# 0. Bib
+library(randomForest)
+
+# 1. Carga dados
+dt <- read.csv("https://raw.githubusercontent.com/diogenesjusto/FIAP/master/dados/train_titanic.csv", stringsAsFactors = TRUE)
+
+# 2. Tratamento de variáveis
+dt[is.na(dt$Age),]$Age <- mean(dt[!is.na(dt$Age),]$Age)
+dt$Pclass_F <- as.factor(dt$Pclass)
+dt<- cbind(dt, dummy(dt$Pclass_F))
+dt$Survived_F <- as.factor(dt$Survived)
+
+prop.table(table(dt$Survived))
+
+# 3. Separação dados treino e teste
+set.seed(33)
+va <- sample(nrow(dt))
+treino <- dt[va[1:600],]
+teste  <- dt[va[601:891],]
+
+# 4. Modelagem
+set.seed(52)
+mod <- randomForest(Survived_F~Age+Sex+Pclass, ntree=700, data=treino)
+plot(mod)
+
+# 5. Previsão
+p <- predict(mod, newdata=teste)
+prev <- p
+
+# ACC = (TP+TN)/#tot
+sum(ifelse(prev==teste$Survived,1,0))/nrow(teste)
+table(prev,teste$Survived)
+
+
+# Regr. Logística
+# 0. Bib
+library(e1071)
+
+# 1. Carga dados
+dt <- read.csv("https://raw.githubusercontent.com/diogenesjusto/FIAP/master/dados/train_titanic.csv", stringsAsFactors = TRUE)
+
+# 2. Tratamento de variáveis
+dt[is.na(dt$Age),]$Age <- mean(dt[!is.na(dt$Age),]$Age)
+dt$Pclass_F <- as.factor(dt$Pclass)
+dt<- cbind(dt, dummy(dt$Pclass_F))
+dt$Survived_F <- as.factor(dt$Survived)
+
+# 3. Separação dados treino e teste
+set.seed(33)
+va <- sample(nrow(dt))
+treino <- dt[va[1:600],]
+teste  <- dt[va[601:891],]
+
+# 4. Modelagem
+mod <- glm(Survived~Age+Sex+Pclass, family = binomial(), data=treino)
+
+# 5. Previsão
+p <- predict(mod, newdata=teste)
+prev <- ifelse(p<.1,0,1)
+
+# ACC = (TP+TN)/#tot
+sum(ifelse(prev==teste$Survived,1,0))/nrow(teste)
+table(prev,teste$Survived)
+
+
+# SVM
+# 0. Bib
+library(e1071)
+
+# 1. Carga dados
+dt <- read.csv("https://raw.githubusercontent.com/diogenesjusto/FIAP/master/dados/train_titanic.csv", stringsAsFactors = TRUE)
+
+# 2. Tratamento de variáveis
+dt[is.na(dt$Age),]$Age <- mean(dt[!is.na(dt$Age),]$Age)
+dt$Pclass_F <- as.factor(dt$Pclass)
+dt<- cbind(dt, dummy(dt$Pclass_F))
+dt$Survived_F <- as.factor(dt$Survived)
+
+# 3. Separação dados treino e teste
+set.seed(33)
+va <- sample(nrow(dt))
+treino <- dt[va[1:600],]
+teste  <- dt[va[601:891],]
+
+# 4. Modelagem
+mod <- svm(Survived~Age+Sex+Pclass, data=treino)
+mod.tune <- tune.svm(Survived~Age+Sex+Pclass, data=treino, 
+          gamma=c(.1,.3,1,2),kernel="linear")
+
+# 5. Previsão
+p <- predict(mod, newdata=teste)
+prev <- ifelse(p<.5,0,1)
+
+# ACC = (TP+TN)/#tot
+sum(ifelse(prev==teste$Survived,1,0))/nrow(teste)
+table(prev,teste$Survived)
+
+# Aprendizado não supervisionado
+# Clusterização - k-means
+m <- mtcars
+plot(m$mpg ~ m$wt)
+
+set.seed(33)
+k <- kmeans(m[,c("mpg", "wt")], 6)
+k$cluster
+plot(m$mpg ~ m$wt, col=k$cluster, pch=k$cluster)
+
+m$mpg2 <- m$mpg/6
+plot(m$mpg2 ~ m$wt)
+
+k <- kmeans(m[,c("mpg2", "wt")], 4)
+k$cluster
+plot(m$mpg2 ~ m$wt, col=k$cluster, pch=k$cluster)
