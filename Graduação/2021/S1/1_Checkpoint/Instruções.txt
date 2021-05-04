@@ -1,0 +1,25 @@
+# Desafio Baba
+# Vocês deverão prever as vendas diárias de babás eletrônicas para todos os dias do mês de agosto de 2015.
+# Como dados históricos vocês terão disponíveis 1 ano de dados diários de vendas de babás eletrônicas em um site de webcommercer.
+# Os dados são reais
+
+# Baba.Csv - base dados com 1 ano de dados históricos mais um mês (ago-2015) de dados estimados de descontos e margem desejados pela área de planejamento.
+# Campos:
+# date: data
+# mes: mês
+# weekday: dia da semana
+# margem : margem de lucro total no dia em unidade monetária ($)
+# venda : venda total no dia em unidade monetária ($) é a variável que queremos prever
+# desconto : é o momentante total de desconto aplicado no dia em unidade monetária ($)
+
+# predict.R - arquivo base de exemplo para construir um modelo preditivo em R. Vocês poderão utilizar python se desejarem.
+
+# arquivo_submissao_exemplo.csv - é um exemplo de como ficará o arquivo de previsões após a execução do código predict.R
+
+# Após a construção de um arquivo de previsões, vocês deverão realizar o upload no site << http://ec2-54-94-59-110.sa-east-1.compute.amazonaws.com/ >>
+# 1. Faça o registro da equipe no botão Register
+# 2. Faça o login (sign in)
+# 3. Selecione o arquivo de submissão
+# 4. Clique em upload e verifique seu score
+
+# A entrega final será seu código comentado. A nota será atribuída pelo score final + raciocínio utilizado na elaboração da solução
