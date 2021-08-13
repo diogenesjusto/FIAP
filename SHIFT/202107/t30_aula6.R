@@ -1,4 +1,4 @@
-# Aula 6 - ¡rvores de Decis„o
+# Aula 6 - √Årvores de Decis√£o
 # 0. Bibliotecas
 library(party)
 library(caret)
@@ -6,29 +6,30 @@ library(caret)
 # 1. Carga de dados
 t <- read.csv("https://raw.githubusercontent.com/diogenesjusto/FIAP/master/dados/train_titanic.csv")
 
-# 2. TransformaÁıes de dados
+# 2. Transforma√ß√µes de dados
 t$Sex_f <- as.factor(t$Sex)
 t$Pclass_f <- as.factor(t$Pclass)
 
-# 3. SeparaÁ„o Treino-Teste
+# 3. Separa√ß√£o Treino-Teste
 set.seed(33)
 va <- sample(891)
 treino <- t[va[1:600],]
 teste  <- t[va[601:891],]
 
 # 4. Modelagem
-mod <- ctree(Survived~Pclass_f+SibSp+as.factor(Embarked), data=t)
+# Ajuste feito em 12-ago - a vers√£o anterior estava incorretamente como data=t ou seja, treinando em base inteira
+mod <- ctree(Survived~Pclass_f+SibSp+as.factor(Embarked), data=treino)
 
 #plot(mod, type="simple")
-# 5. Previs„o em teste
+# 5. Previs√£o em teste
 p <- predict(mod, newdata=teste)
 
-# 6. An·lise do Erro de Previs„o
+# 6. An√°lise do Erro de Previs√£o
 prev <- ifelse(p>=.45,1,0)
-# An·lise de distribuiÁ„o de probabilidade esperada (target)
+# An√°lise de distribui√ß√£o de probabilidade esperada (target)
 hist(p)
 
-# Matriz de Confus„o
+# Matriz de Confus√£o
 table(prev, teste$Survived)
 confusionMatrix(as.factor(prev), as.factor(teste$Survived))
 
