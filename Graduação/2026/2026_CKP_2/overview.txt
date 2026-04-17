@@ -1,0 +1,3 @@
+Repositório do checkpoint 2. 
+
+Prever venda para mês jul, baseado no histórico de um ano anterior.
